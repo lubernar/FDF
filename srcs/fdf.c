@@ -6,7 +6,7 @@
 /*   By: lubernar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:03:07 by lubernar          #+#    #+#             */
-/*   Updated: 2019/01/25 15:49:18 by lubernar         ###   ########.fr       */
+/*   Updated: 2019/01/30 14:43:41 by lubernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,16 @@ int	deal_key(int key, t_all *all)
 {
 	if (key == 53)
 		exit (0);
+	if (key == 69)
+		all->z += 2;
+	if (key == 78)
+		all->z -= 2;
+	if (key == 67 && all->deepth > 1)
+		all->deepth--;
+	if (key == 75)
+		all->deepth++;
+	printf("%d\n", key);
+	mlx_clear_window(all->mlx, all->win);
 	draw_map(all);
 	return (0);
 }
@@ -98,6 +108,8 @@ int		main(int ac, char **av)
 	t_all	all;
 
 	fd = open(av[1], O_RDONLY);
+	if (fd == -1)
+		return (0);
 	(void)ac;
 	all.nb_lines = count_lines(fd, av);
 	all.tab = read_map(fd, av, all.nb_lines);

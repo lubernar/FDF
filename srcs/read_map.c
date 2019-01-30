@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_all.c                                         :+:      :+:    :+:   */
+/*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   Bytab: lubernar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lubernar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/21 17:32:27 bytab lubernar          #+#    #+#             */
-/*   Updated: 2019/01/25 15:06:42 by lubernar         ###   ########.fr       */
+/*   Created: 2019/01/25 17:32:41 by lubernar          #+#    #+#             */
+/*   Updated: 2019/01/25 17:43:05 by lubernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ int		count_words(char **str)
 
 	i = 0;
 	while (str[i])
+	{
 		i++;
-	return (i);
+	}
+	return (i + 1);
 }
 
 int		count_lines(int fd, char **av)
@@ -54,9 +56,9 @@ int		**read_map(const int fd, char **av, int nb_lines)
 	while (get_next_line(fd, &line))
 	{
 		all.xtab = 0;
-		if (ft_isdigit(line[j]))
+		if (ft_isdigit(line[j]) || line[j] == '-')
 			str = ft_strsplit(line, ' ');
-		if ((all.tab[all.ytab] = (int*)malloc(sizeof(int) * (count_words(str) + 1))) == NULL)
+		if (!(all.tab[all.ytab] = malloc(sizeof(int) * (count_words(str)))))
 			return (NULL);
 		while (str[all.xtab])
 		{

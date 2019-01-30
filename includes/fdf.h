@@ -6,7 +6,7 @@
 /*   By: lubernar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:21:22 by lubernar          #+#    #+#             */
-/*   Updated: 2019/01/25 15:22:36 by lubernar         ###   ########.fr       */
+/*   Updated: 2019/01/30 14:35:06 by lubernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct	s_all
 	int		nb_lines;
 	int		xinc;
 	int		yinc;
+	int		z;
+	int		deepth;
 	void	*mlx;
 	void	*win;
 }				t_all;
