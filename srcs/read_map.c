@@ -6,7 +6,7 @@
 /*   By: lubernar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 17:32:41 by lubernar          #+#    #+#             */
-/*   Updated: 2019/01/25 17:43:05 by lubernar         ###   ########.fr       */
+/*   Updated: 2019/02/07 16:06:36 by lubernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,17 @@
 
 int		count_words(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
-	{
 		i++;
-	}
-	return (i + 1);
+	return (i);
 }
 
 int		count_lines(int fd, char **av)
 {
-	int nb_lines;
+	int		nb_lines;
 	char	*line;
 
 	fd = open(av[1], O_RDONLY);
@@ -40,66 +38,65 @@ int		count_lines(int fd, char **av)
 	return (nb_lines);
 }
 
-int		**read_map(const int fd, char **av, int nb_lines)
+int		xmax(int **tab)
+{
+	int	j;
+	int	xmax;
+
+	xmax = 0;
+	j = 0;
+	if (tab[0] == NULL)
+		return (0);
+	while (tab[0][j] != 2147483647)
+	{
+		j++;
+		xmax++;
+	}
+	return (xmax);
+}
+
+int		str_to_tab(t_all *all, char **str, char *line, int xtab)
+{
+	int	istrue;
+
+	istrue = 1;
+	while (str[xtab])
+	{
+		all->tab[all->ytab][xtab] = ft_atoi(str[xtab]);
+		xtab++;
+		free(str[xtab - 1]);
+	}
+	free(str);
+	free(line);
+	all->tab[all->ytab++][xtab] = 2147483647;
+	return (istrue);
+}
+
+int		**read_map(const int fd, int nb_lines)
 {
 	char	*line;
 	char	**str;
 	int		j;
 	t_all	all;
-	
+	int		istrue;
+
 	j = 0;
 	all.ytab = 0;
+	istrue = 0;
 	if ((all.tab = (int**)malloc(sizeof(int*) * (nb_lines + 1))) == NULL)
-		return (NULL);
-	if ((str = (char**)malloc(sizeof(char*) * (nb_lines + 1))) == NULL)
 		return (NULL);
 	while (get_next_line(fd, &line))
 	{
 		all.xtab = 0;
+		while (!ft_isdigit(line[j]) && line[j])
+			j++;
+		line[j] == '\0' ? error("Fichier invalide.\n") : line[j];
 		if (ft_isdigit(line[j]) || line[j] == '-')
 			str = ft_strsplit(line, ' ');
-		if (!(all.tab[all.ytab] = malloc(sizeof(int) * (count_words(str)))))
+		if (!(all.tab[all.ytab] = malloc(sizeof(int) * (count_words(str) + 1))))
 			return (NULL);
-		while (str[all.xtab])
-		{
-			all.tab[all.ytab][all.xtab] = ft_atoi(str[all.xtab]);
-			all.xtab++;
-		}
-		all.tab[all.ytab][all.xtab] = 2147483647;
-		all.ytab++;
+		istrue = str_to_tab(&all, str, line, all.xtab);
 	}
-	free(line);
+	!istrue ? error("Fichier invalide.\n") : all.tab[0];
 	return (all.tab);
 }
-
-/*int	main(int ac, char **av)
-{
-	int fd;
-	(void)ac;
-	int	i;
-	int j;
-	int **tab;
-	char	*line;
-	int nb_line;
-
-	j = 0;
-	t_all.all.;
-	i = 0;
-	fd = open(av[1], O_RDONLytab);
-	printf("%d\n", count_lines(fd, av));
-	all..nb_lines = count_lines(fd, av);
-	//nb_line = all.->nb_lines;
-	tab = read_all.fd, av, all..nb_lines);
-	while (i < all..nb_lines)
-	{
-		while (tab[i][j] != -2147483648)
-		{
-			printf("%d ", tab[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-		j = 0;
-	}
-	return (0);
-}*/

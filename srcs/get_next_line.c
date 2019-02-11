@@ -6,7 +6,7 @@
 /*   By: lubernar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 17:38:33 by lubernar          #+#    #+#             */
-/*   Updated: 2018/12/04 15:28:54 by lubernar         ###   ########.fr       */
+/*   Updated: 2019/02/07 15:46:28 by lubernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		get_next_line(const int fd, char **line)
 		return (-1);
 	while ((new = read(fd, buff, BUFF_SIZE)))
 	{
-		if (new == -1)
+		if (new == -1 || new == 0)
 			return (-1);
 		buff[new] = '\0';
 		if (tmp[fd] == NULL)

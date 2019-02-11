@@ -6,7 +6,7 @@
 #    By: lubernar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/08 17:45:16 by lubernar          #+#    #+#              #
-#    Updated: 2018/12/05 14:39:46 by lubernar         ###   ########.fr        #
+#    Updated: 2019/02/04 12:11:13 by lubernar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,8 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
-	ranlib $(NAME)
+	@ar rc $(NAME) $(OBJS)
+	@ranlib $(NAME)
 
 clean:
 	/bin/rm -f $(OBJS)

@@ -6,7 +6,7 @@
 /*   By: lubernar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 13:17:51 by lubernar          #+#    #+#             */
-/*   Updated: 2018/11/08 13:33:06 by lubernar         ###   ########.fr       */
+/*   Updated: 2019/02/06 17:54:02 by lubernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ size_t	ft_strlen(const char *s)
 	size_t i;
 
 	i = 0;
+	if (s == NULL)
+		return (0);
 	while (s[i])
-	{
 		i++;
-	}
 	return (i);
 }
